@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 
 	const profilePic = document.createElement("img");
+	profilePic.id = "profilePic";
 	profilePic.src = loginUser.profile;
 	profilePic.style.width = "30px";
 	profilePic.style.height = "30px";
