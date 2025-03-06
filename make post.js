@@ -5,7 +5,20 @@ document.addEventListener("DOMContentLoaded", () => {
 	const completeButton = document.getElementById("completeButton");
 	const fileInput = document.querySelector("input[type='file']");
 	const showImage = document.getElementById("showImage");
+	const loginUser = JSON.parse(sessionStorage.getItem("loginUser"));
+	const header = document.getElementById("headerContents");
+	const backward = document.getElementById("backward");
 	let uploadedImage = "";
+
+	const profilePic = document.createElement("img");
+	profilePic.id = "profilePic";
+	profilePic.src = loginUser.profile
+		? loginUser.profile
+		: "./profile_img.webp";
+	profilePic.style.width = "30px";
+	profilePic.style.height = "30px";
+	profilePic.style.borderRadius = "50%";
+	header.appendChild(profilePic);
 
 	title.addEventListener("input", () => {
 		title.value = title.value.substring(0, 26);
@@ -69,6 +82,10 @@ document.addEventListener("DOMContentLoaded", () => {
 			localStorage.setItem("posts", JSON.stringify(posts));
 			document.location.href = "Posts.html";
 		}
+	});
+
+	backward.addEventListener("click", () => {
+		window.location.href = "Posts.html";
 	});
 });
 

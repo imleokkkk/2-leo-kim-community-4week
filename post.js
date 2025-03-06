@@ -23,7 +23,10 @@ document.addEventListener("DOMContentLoaded", () => {
 	const post = posts[postIdx];
 
 	const profilePic = document.createElement("img");
-	profilePic.src = loginUser.profile;
+	profilePic.id = "profilePic";
+	profilePic.src = loginUser.profile
+		? loginUser.profile
+		: "./profile_img.webp";
 	profilePic.style.width = "30px";
 	profilePic.style.height = "30px";
 	profilePic.style.borderRadius = "50%";

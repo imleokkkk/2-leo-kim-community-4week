@@ -106,16 +106,6 @@
 }
 
 .menuList {
-	/* menu.style.position = "absolute";
-	menu.style.top = "50px";
-	menu.style.right = "10px";
-	menu.style.background = "white";
-	menu.style.border = "1px solid #ccc";
-	menu.style.borderRadius = "5px";
-	menu.style.padding = "10px";
-	menu.style.boxShadow = "0 2px 5px rgba(0, 0, 0, 0.2)";
-	menu.style.display = "none"; // 기본적으로 숨김 */
-
 	position: absolute;
 	top: 60px;
 	right: 180px;

@@ -7,9 +7,19 @@
 	width: 100%;
 	height: 30px;
 	display: flex;
+	border-bottom: solid;
+	padding: 20px;
 	align-items: center;
 	justify-content: center;
-	border-bottom: solid;
+	font-size: 25px;
+}
+
+.header > div {
+	width: 70%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-around;
 }
 
 .loginTitle {

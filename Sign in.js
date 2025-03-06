@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	const profilePicAdd = document.getElementById("profilePicAdd");
 	const profileInput = document.getElementById("profileInput");
 	const profilePreview = document.getElementById("profilePreview");
+	const backward = document.getElementById("backward");
 	let uploadedProfileImage = "";
 
 	// 파일 읽기 후 실행할 함수 (Promise 사용)
@@ -117,6 +118,10 @@ document.addEventListener("DOMContentLoaded", () => {
 		const members = JSON.parse(localStorage.getItem("members")) || [];
 		members.push(member);
 		localStorage.setItem("members", JSON.stringify(members));
+		window.location.href = "Log in.html";
+	});
+
+	backward.addEventListener("click", () => {
 		window.location.href = "Log in.html";
 	});
 
