@@ -1,3 +1,5 @@
+import { signup } from "./api/users.js";
+
 document.addEventListener("DOMContentLoaded", () => {
 	const email = document.getElementById("email");
 	const emailHelper = document.getElementById("emailHelper");
@@ -62,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 	});
 
-	handleProfileClick = () => {
+	const handleProfileClick = () => {
 		profileInput.value = ""; // 같은 파일 다시 선택 가능하도록 초기화
 		profileInput.click();
 	};
@@ -108,27 +110,29 @@ document.addEventListener("DOMContentLoaded", () => {
 		updateButtonState();
 	});
 
-	signInButton.addEventListener("click", () => {
-		const member = {
+	signInButton.addEventListener("click", async () => {
+		const request = {
 			email: email.value,
 			password: password.value,
 			nickname: nickname.value,
-			profile: uploadedProfileImage,
+			profileImage: uploadedProfileImage,
 		};
-		const members = JSON.parse(localStorage.getItem("members")) || [];
-		members.push(member);
-		localStorage.setItem("members", JSON.stringify(members));
-		window.location.href = "Log in.html";
+		const response = await signup(JSON.stringify(request));
+		console.log(response.message);
+		if (response.message === "DUPLICATE_EMAIL") {
+			emailHelper.innerText = "*중복된 이메일 입니다.";
+			updateButtonState();
+		} else if (response.message === "DUPLICATE_NICKNAME") {
+			nicknameHelper.innerText = "*중복된 닉네임 입니다.";
+			updateButtonState();
+		} else {
+			window.location.href = "Log in.html";
+		}
 	});
 
 	backward.addEventListener("click", () => {
 		window.location.href = "Log in.html";
 	});
-
-	// email.addEventListener("input", updateButtonState);
-	// password.addEventListener("input", updateButtonState);
-	// passwordConfirm.addEventListener("input", updateButtonState);
-	// nickname.addEventListener("input", updateButtonState);
 });
 
 const validateEmail = (email) => {
@@ -139,12 +143,6 @@ const validateEmail = (email) => {
 	const emailRegex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,}$/;
 	if (!emailRegex.test(email)) {
 		return "*올바른 이메일 주소 형식을 입력해주세요.(예:example@example.com)";
-	}
-
-	const members = JSON.parse(localStorage.getItem("members")) || [];
-	for (let i = 0; i < members.length; i++) {
-		const item = members[i];
-		if (item.email == email) return "*중복된 이메일 입니다.";
 	}
 
 	return "";
@@ -187,13 +185,6 @@ const validateNickname = (nickname) => {
 
 	if (nickname.length > 10) {
 		return "*닉네임은 최대 10자까지 작성 가능합니다.";
-	}
-
-	const members = JSON.parse(localStorage.getItem("members")) || [];
-	for (let i = 0; i < members.length; i++) {
-		const item = members[i];
-		if (!item.email) continue;
-		if (item.nickname == nickname) return "*중복된 닉네임 입니다.";
 	}
 
 	return "";
